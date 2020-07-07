@@ -17,3 +17,13 @@ kubectl get secrets --namespace kube-system --field-selector type=kubernetes.io/
 ```
 kubectl get secrets --namespace kube-system --field-selector type=kubernetes.io/tls -o json | jq -r '.items[].data."tls.key"' | base64 -D
 ```
+
+### Usage
+
+```
+cat plain-secret.txt | setec encrypt --private-key-path string /tmp/backup.key --namspace production --name rails
+```
+
+```
+cat encrypted-secret.txt | setec decrypt --private-key-path string /tmp/backup.key --namspace production --name rails
+```
