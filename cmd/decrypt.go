@@ -40,11 +40,6 @@ func decrypt(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	cipher, err := ioutil.ReadAll(os.Stdin)
-	if err != nil {
-		return err
-	}
-
 	namespace, err := cmd.Flags().GetString("namespace")
 	if err != nil {
 		return err
@@ -63,6 +58,11 @@ func decrypt(cmd *cobra.Command, args []string) error {
 
 	keys := map[string]*rsa.PrivateKey{
 		"default": key,
+	}
+
+	cipher, err := ioutil.ReadAll(os.Stdin)
+	if err != nil {
+		return err
 	}
 
 	shouldDecode, err := cmd.Flags().GetBool("base64-decode")

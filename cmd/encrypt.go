@@ -20,8 +20,8 @@ var encryptCmd = &cobra.Command{
 }
 
 func init() {
-	encryptCmd.Flags().StringP("private-key-path", "", "", "the path to the private key used by the Sealed Secrets Controller")
-	_ = encryptCmd.MarkFlagRequired("private-key-path")
+	encryptCmd.Flags().StringP("public-key-path", "", "", "the path to the public key used by the Sealed Secrets Controller")
+	_ = encryptCmd.MarkFlagRequired("public-key-path")
 	encryptCmd.Flags().StringP("namespace", "", "", "the namespace used by the Sealed Secrets Controller")
 	encryptCmd.Flags().StringP("name", "", "", "the name used by the Sealed Secrets Controller")
 	encryptCmd.Flags().BoolP("base64-encode", "", true, "should the output be base64 encoded")
@@ -29,12 +29,12 @@ func init() {
 
 func encrypt(cmd *cobra.Command, args []string) error {
 
-	path, err := cmd.Flags().GetString("private-key-path")
+	path, err := cmd.Flags().GetString("public-key-path")
 	if err != nil {
 		return err
 	}
 
-	key, err := internal.NewPrivateKeyFromFile(path)
+	key, err := internal.NewPublicKeyFromFile(path)
 	if err != nil {
 		return err
 	}
@@ -60,7 +60,7 @@ func encrypt(cmd *cobra.Command, args []string) error {
 		label = internal.NewLabel(namespace, name)
 	}
 
-	cipher, err := crypto.HybridEncrypt(rand.Reader, &key.PublicKey, data, label)
+	cipher, err := crypto.HybridEncrypt(rand.Reader, key, data, label)
 	if err != nil {
 		return err
 	}
