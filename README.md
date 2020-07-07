@@ -1,5 +1,7 @@
 # Setec Astronomy
 
+![CI](https://github.com/anthonysterling/setec/workflows/CI/badge.svg)
+
 _Setec Astronomy_ is an anagram of _too many secrets_ which I stole from the excellent movie [Sneakers](https://www.rottentomatoes.com/m/sneakers), which stars Robert Redford, Dan Aykroyd, Ben Kingsley, Mary McDonnell, River Phoenix, Sidney Poitier, and David Strathairn! 🤩
 
 Go watch it.
