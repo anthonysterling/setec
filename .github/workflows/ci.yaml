@@ -13,6 +13,8 @@ jobs:
       uses: actions/setup-go@v2
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Bootstrap
+      run: script/bootstrap
     - name: Lint
       run: script/lint
     - name: Test
