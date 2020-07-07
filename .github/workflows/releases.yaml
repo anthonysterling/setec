@@ -1,4 +1,4 @@
-name: goreleaser
+name: Releases
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - "v**"
 
 jobs:
-  goreleaser:
+  Releases:
     runs-on: ubuntu-latest
     steps:
     - name: Setup Go
