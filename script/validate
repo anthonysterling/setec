@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+
+test -z "${DEBUG:-}" || {
+    set -x
+}
+
+script/build
+
+tmp=$(mktemp -d)
+openssl genrsa 2048 > "${tmp}/private.key" 2> /dev/null
+openssl req -new -x509 -nodes -days 1 -subj "/CN=localhost" -key "${tmp}/private.key" -out "${tmp}/public.crt"
+
+secret="Setec Astronomy"
+encrypted=$(echo "${secret}" | bin/setec encrypt --public-key-path "${tmp}/public.crt")
+decrypted=$(echo "${encrypted}" | bin/setec decrypt --private-key-path "${tmp}/private.key")
+rm -rf "${tmp}"
+
+if [[ "${secret}" == "${decrypted}" ]]; then
+    exit 0
+else
+    exit 1
+fi
+
