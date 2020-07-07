@@ -20,10 +20,13 @@ kubectl get secrets --namespace kube-system --field-selector type=kubernetes.io/
 
 ### Usage
 
+Sealed Secrets are, optionally, scoped by Kubernetes namespace and name. If a Sealed Secret was scoped as cluster-wide you can omit the `--namespace` and `--name` flags.
+
+
 ```
-cat plain-secret.txt | setec encrypt --private-key-path string /tmp/backup.key --namspace production --name rails
+cat plain-secret.txt | setec encrypt --private-key-path string /tmp/backup.key --namespace production --name rails
 ```
 
 ```
-cat encrypted-secret.txt | setec decrypt --private-key-path string /tmp/backup.key --namspace production --name rails
+cat encrypted-secret.txt | setec decrypt --private-key-path string /tmp/backup.key --namespace production --name rails
 ```
