@@ -24,9 +24,9 @@ Sealed Secrets are, optionally, scoped by Kubernetes namespace and name. If a Se
 
 
 ```
-cat plain-secret.txt | setec encrypt --private-key-path string /tmp/backup.key --namespace production --name rails
+cat plain-secret.txt | setec encrypt --public-key-path /tmp/backup.pub --namespace production --name rails
 ```
 
 ```
-cat encrypted-secret.txt | setec decrypt --private-key-path string /tmp/backup.key --namespace production --name rails
+cat encrypted-secret.txt | setec decrypt --private-key-path /tmp/backup.key --namespace production --name rails
 ```
