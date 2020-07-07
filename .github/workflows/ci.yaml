@@ -17,7 +17,9 @@ jobs:
       run: script/bootstrap
     - name: Lint
       run: script/lint
-    - name: Test
-      run: script/test
     - name: Build
       run: script/build
+    - name: Test
+      run: script/test
+    - name: Validate
+      run: script/validate
