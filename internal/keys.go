@@ -34,14 +34,18 @@ func NewPrivateKeyFromFile(path string) (*rsa.PrivateKey, error) {
 }
 
 func NewPublicKeyFromPEM(data []byte) (*rsa.PublicKey, error) {
+
 	block, _ := pem.Decode(data)
+
 	cert, err := x509.ParseCertificate(block.Bytes)
 	if err != nil {
 		return nil, err
 	}
+
 	if pub, ok := cert.PublicKey.(*rsa.PublicKey); ok {
 		return pub, nil
 	}
+
 	return nil, fmt.Errorf("cannot create public key")
 }
 
