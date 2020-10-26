@@ -9,11 +9,20 @@ import (
 	"os"
 )
 
+const (
+	TypeRSAPrivateKey = "RSA PRIVATE KEY"
+	TypeCertificate   = "CERTIFICATE"
+)
+
 func NewPrivateKeyFromPEM(data []byte) (*rsa.PrivateKey, error) {
 
 	block, _ := pem.Decode(data)
 	if block == nil {
 		return nil, fmt.Errorf("no PEM data found")
+	}
+
+	if block.Type != TypeRSAPrivateKey {
+		return nil, fmt.Errorf("expected private key, but got %s", block.Type)
 	}
 
 	return x509.ParsePKCS1PrivateKey(block.Bytes)
@@ -36,6 +45,13 @@ func NewPrivateKeyFromFile(path string) (*rsa.PrivateKey, error) {
 func NewPublicKeyFromPEM(data []byte) (*rsa.PublicKey, error) {
 
 	block, _ := pem.Decode(data)
+	if block == nil {
+		return nil, fmt.Errorf("no PEM data found")
+	}
+
+	if block.Type != TypeCertificate {
+		return nil, fmt.Errorf("expected certificate, but got %s", block.Type)
+	}
 
 	cert, err := x509.ParseCertificate(block.Bytes)
 	if err != nil {
