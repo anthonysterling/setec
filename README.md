@@ -15,11 +15,17 @@ Setec (_pronounced see-tek_) is a utility tool that encrypts and decrypts secret
 The tool requires the Sealed Secrets key to decrypt a value, and the Sealed Secrets certificate to encrypt a value. Where these are located in your Kubernetes cluster is most likely something you know already, I found mine with these commands; which may help.
 
 ```
-kubectl get secrets --namespace kube-system --field-selector type=kubernetes.io/tls -o json | jq -r '.items[].data."tls.crt"' | base64 -D
+kubectl get secrets \
+        --namespace kube-system --field-selector type=kubernetes.io/tls \
+        --selector sealedsecrets.bitnami.com/sealed-secrets-key=active \
+        -o jsonpath='{ .items[*].data.tls\.crt }' | base64 -D
 ```
 
 ```
-kubectl get secrets --namespace kube-system --field-selector type=kubernetes.io/tls -o json | jq -r '.items[].data."tls.key"' | base64 -D
+kubectl get secrets \
+        --namespace kube-system --field-selector type=kubernetes.io/tls \
+        --selector sealedsecrets.bitnami.com/sealed-secrets-key=active \
+        -o jsonpath='{ .items[*].data.tls\.key }' | base64 -D
 ```
 
 ### Usage
