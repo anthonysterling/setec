@@ -10,7 +10,7 @@ Go watch it.
 
 Setec (_pronounced see-tek_) is a utility tool that encrypts and decrypts secrets that are managed by Bitnami's [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets). Whilst we're technically not meant to be doing this, I had a use case and wanted to share this.
 
-🚨 This functionality is now included in the offical [kubeseal](https://github.com/bitnami-labs/sealed-secrets#raw-mode-experimental) application, and whilst it is marked as _experimental_ it's absolutely going to be better maintained and more compatible than this project - so you should 💯 check that out first.
+🚨 This functionality is now included in the official [kubeseal](https://github.com/bitnami-labs/sealed-secrets#raw-mode-experimental) application, and whilst it is marked as "experimental" it is _absolutely_ going to be better maintained and more compatible with Sealed Secrets than this project - so you should 💯 check that out first.
 
 ### Obtaining Sealed Secrets Certificate and Key
 
