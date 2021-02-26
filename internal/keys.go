@@ -6,6 +6,8 @@ import (
 	"encoding/pem"
 	"fmt"
 	"io/ioutil"
+	"net/http"
+	"net/url"
 	"os"
 )
 
@@ -72,6 +74,27 @@ func NewPublicKeyFromFile(path string) (*rsa.PublicKey, error) {
 	}
 
 	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	return NewPublicKeyFromPEM(data)
+}
+
+func NewPublicKeyFromURL(addr string) (*rsa.PublicKey, error) {
+
+	if _, err := url.ParseRequestURI(addr); err != nil {
+		return nil, err
+	}
+
+	res, err := http.Get(addr)
+	if err != nil {
+		return nil, err
+	}
+
+	defer res.Body.Close()
+
+	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}
