@@ -13,8 +13,8 @@ jobs:
       uses: actions/setup-go@v2
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Set CURRENT_TAG
-      run: echo ::set-env name=GORELEASER_CURRENT_TAG::${GITHUB_REF#refs/tags/}
+    - name: Set GORELEASER_CURRENT_TAG
+      run: echo "GORELEASER_CURRENT_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v1
       with:
